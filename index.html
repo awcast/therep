@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModernPCB Editor</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/toolbar.css">
+    <link rel="stylesheet" href="styles/panels.css">
+    <link rel="stylesheet" href="styles/auth.css">
+    <link rel="stylesheet" href="styles/tabs.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Top Menu Bar -->
+        <div class="menu-bar">
+            <div class="menu-group">
+                <div class="dropdown">
+                    <button class="menu-btn">File</button>
+                    <div class="dropdown-content">
+                        <a href="#" id="menu-new">New</a>
+                        <a href="#" id="menu-open">Open PCB File</a>
+                        <a href="#" id="menu-save">Save</a>
+                        <a href="#" id="menu-export">Export</a>
+                        <div class="separator"></div>
+                        <a href="#" id="menu-import-pcbdoc">Import .pcbdoc</a>
+                        <a href="#" id="menu-import-kicad">Import KiCad</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="menu-btn">Edit</button>
+                    <div class="dropdown-content">
+                        <a href="#" id="menu-undo">Undo</a>
+                        <a href="#" id="menu-redo">Redo</a>
+                        <div class="separator"></div>
+                        <a href="#" id="menu-copy">Copy</a>
+                        <a href="#" id="menu-paste">Paste</a>
+                        <a href="#" id="menu-delete">Delete</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="menu-btn">View</button>
+                    <div class="dropdown-content">
+                        <a href="#" id="menu-toggle-tools">Toggle Tools Panel</a>
+                        <div class="separator"></div>
+                        <a href="#" id="zoom-in">Zoom In</a>
+                        <a href="#" id="zoom-out">Zoom Out</a>
+                        <a href="#" id="zoom-fit">Fit</a>
+                        <div class="separator"></div>
+                        <a href="#" id="grid-toggle">Toggle Grid</a>
+                        <a href="#" id="snap-toggle">Toggle Snap</a>
+                        <div class="separator"></div>
+                        <a href="#" id="view-3d">3D View</a>
+                    </div>
+                </div>
+                <button class="menu-btn" id="menu-library">Library</button>
+                <button class="menu-btn" id="menu-user">Login</button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Left Toolbar -->
+            <div class="toolbar-left">
+                <div class="tool-group">
+                    <h3>Tools</h3>
+                    <button class="tool-btn active" data-tool="select" title="Select Tool">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M2 2L8 8L6 10L0 4L2 2Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <button class="tool-btn" data-tool="trace" title="Route Traces">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M2 12L22 12M12 2L12 22" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    <button class="tool-btn" data-tool="via" title="Add Via">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <button class="tool-btn" data-tool="pad" title="Add Pad">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <rect x="6" y="6" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <circle cx="12" cy="12" r="2" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <button class="tool-btn" data-tool="component" title="Place Component">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <rect x="4" y="4" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <circle cx="8" cy="8" r="1" fill="currentColor"/>
+                            <circle cx="16" cy="8" r="1" fill="currentColor"/>
+                            <circle cx="8" cy="16" r="1" fill="currentColor"/>
+                            <circle cx="16" cy="16" r="1" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <button class="tool-btn" id="open-library-btn" title="Open Component Library">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </button>
+                    <button class="tool-btn" data-tool="measure" title="Measurement Tool">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M3 17L9 11L13 15L21 7" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M16 7H21V12" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </button>
+                    <button class="tool-btn" data-tool="drc" title="Design Rule Check">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </button>
+                    <button class="tool-btn" data-tool="text" title="Add Text">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M5 4V7H10.5V19H13.5V7H19V4H5Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <button class="tool-btn" data-tool="polygon" title="Draw Polygon">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M3 3L10 10L21 4L18 21L8 14L3 3Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="tool-group">
+                    <h3>Layers</h3>
+                    <div class="layer-list">
+                        <div class="layer-item active" data-layer="top-copper">
+                            <input type="checkbox" checked>
+                            <span class="layer-color" style="background: #cc0000"></span>
+                            <span>Top Copper</span>
+                        </div>
+                        <div class="layer-item" data-layer="bottom-copper">
+                            <input type="checkbox" checked>
+                            <span class="layer-color" style="background: #0066cc"></span>
+                            <span>Bottom Copper</span>
+                        </div>
+                        <div class="layer-item" data-layer="top-silk">
+                            <input type="checkbox" checked>
+                            <span class="layer-color" style="background: #ffffff"></span>
+                            <span>Top Silkscreen</span>
+                        </div>
+                        <div class="layer-item" data-layer="bottom-silk">
+                            <input type="checkbox" checked>
+                            <span class="layer-color" style="background: #ffff00"></span>
+                            <span>Bottom Silkscreen</span>
+                        </div>
+                        <div class="layer-item" data-layer="drill">
+                            <input type="checkbox" checked>
+                            <span class="layer-color" style="background: #666666"></span>
+                            <span>Drill Holes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-nav">
+                    <button class="tab-btn active" data-tab="properties">Properties</button>
+                    <button class="tab-btn" data-tab="components">Components</button>
+                    <button class="tab-btn" data-tab="drc">DRC</button>
+                    <button class="tab-btn" data-tab="plandex">Plandex</button>
+                </div>
+
+                <div id="properties-tab" class="tab-content active">
+                    <div class="panel-section">
+                        <h3>Properties</h3>
+                        <div id="properties-panel">
+                            <p>Select an object to view properties</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="components-tab" class="tab-content">
+                    <div class="panel-section">
+                        <h3>Components</h3>
+                        <div class="component-library">
+                            <div class="component-category">
+                                <h4>Resistors</h4>
+                                <div class="component-item" data-component="resistor">
+                                    <span>Resistor</span>
+                                </div>
+                            </div>
+                            <div class="component-category">
+                                <h4>Capacitors</h4>
+                                <div class="component-item" data-component="capacitor">
+                                    <span>Capacitor</span>
+                                </div>
+                            </div>
+                            <div class="component-category">
+                                <h4>ICs</h4>
+                                <div class="component-item" data-component="ic-dip8">
+                                    <span>DIP-8</span>
+                                </div>
+                                <div class="component-item" data-component="ic-soic8">
+                                    <span>SOIC-8</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="drc-tab" class="tab-content">
+                    <div class="panel-section">
+                        <h3>Design Rules</h3>
+                        <div class="design-rules">
+                            <div class="rule-item">
+                                <label>Min Trace Width:</label>
+                                <input type="number" value="0.1" step="0.05" min="0.05">
+                                <span>mm</span>
+                            </div>
+                            <div class="rule-item">
+                                <label>Min Via Size:</label>
+                                <input type="number" value="0.2" step="0.05" min="0.1">
+                                <span>mm</span>
+                            </div>
+                            <div class="rule-item">
+                                <label>Min Clearance:</label>
+                                <input type="number" value="0.15" step="0.05" min="0.05">
+                                <span>mm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="plandex-tab" class="tab-content">
+                    <div class="panel-section" id="plandex-panel">
+                        <h3>Plandex AI Assistant</h3>
+                        <div class="plandex-controls">
+                            <textarea id="plandex-prompt" placeholder="Enter a command for Plandex..."></textarea>
+                            <button id="plandex-send">Send to Plandex</button>
+                        </div>
+                        <div class="plandex-status">Ready</div>
+                        <div class="plandex-response"></div>
+                        <div class="plandex-actions">
+                            <button id="plandex-apply" style="display: none;">Apply Changes</button>
+                            <button id="plandex-discard" style="display: none;">Discard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Canvas Area -->
+            <div class="canvas-container">
+                <canvas id="pcb-canvas" width="1200" height="800"></canvas>
+                <div class="canvas-overlay">
+                    <div class="coordinates">X: <span id="coord-x">0</span> Y: <span id="coord-y">0</span></div>
+                    <div class="zoom-level">Zoom: <span id="zoom-level">100%</span></div>
+                </div>
+            </div>
+
+            <!-- Right Panel -->
+            
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-left">
+                <span>Ready</span>
+            </div>
+            <div class="status-right">
+                <span>Grid: 1.27mm</span>
+                <span>Layer: Top Copper</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Library Modal -->
+    <div id="library-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>PCB Library</h2>
+                <button class="modal-close" onclick="closeLibraryModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="library-controls">
+                    <div class="library-search">
+                        <input type="text" id="library-search" placeholder="Search PCBs..." />
+                        <button onclick="searchLibrary()">Search</button>
+                    </div>
+                    <div class="library-actions">
+                        <button onclick="refreshLibrary()">Refresh</button>
+                        <button onclick="exportLibrary()">Export Library</button>
+                        <button onclick="importLibrary()">Import Library</button>
+                    </div>
+                </div>
+                <div class="library-content">
+                    <div class="library-stats">
+                        <span>User: <strong id="library-user"></strong></span>
+                        <span>PCBs: <strong id="library-count">0</strong></span>
+                    </div>
+                    <div id="library-list" class="library-list">
+                        <!-- PCB items will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Modal -->
+    <div id="user-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>User Settings</h2>
+                <button class="modal-close" onclick="closeUserModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="user-settings">
+                    <div class="setting-group">
+                        <label for="username-input">Username:</label>
+                        <input type="text" id="username-input" placeholder="Enter username" />
+                        <button onclick="changeUser()">Change User</button>
+                    </div>
+                    <div class="setting-group">
+                        <h3>All Users:</h3>
+                        <div id="users-list" class="users-list">
+                            <!-- Users will be populated here -->
+                        </div>
+                        <button onclick="deleteSelectedUser()">Delete User</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts - Load in dependency order -->
+    <!-- SQL.js Library for SQLite database -->
+    <script src="https://sql.js.org/dist/sql-wasm.js"></script>
+    
+    <!-- JSZip Library for handling ZIP archives -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    
+    <!-- Core modules -->
+    <script src="js/core/math.js"></script>
+    <script src="js/core/geometry.js"></script>
+    <script src="js/core/grid.js"></script>
+    <script src="js/core/viewport.js"></script>
+    <script src="js/core/renderer.js"></script>
+    <script src="js/core/pcb-object.js"></script>
+    <script src="js/core/design-rules.js"></script>
+    
+    <!-- Authentication system -->
+    <script src="js/core/database-manager.js"></script>
+    <script src="js/core/auth-manager.js"></script>
+    <script src="js/core/api.js"></script>
+    <script src="js/core/user-library.js"></script>
+    <script src="js/ui/auth-ui.js"></script>
+    
+    <!-- PCB objects -->
+    <script src="js/objects/trace.js"></script>
+    <script src="js/objects/via.js"></script>
+    <script src="js/objects/pad.js"></script>
+    <script src="js/objects/component.js"></script>
+    <script src="js/objects/polygon.js"></script>
+    
+    <!-- Tools -->
+    <script src="js/tools/measurement.js"></script>
+    <script src="js/tools/bom-generator.js"></script>
+    <script src="js/tools/drc-tool.js"></script>
+    <script src="js/tools/file-manager.js"></script>
+    <script src="js/tools/polygon-tool.js"></script>
+    
+    <!-- Export and parsers -->
+    <script src="js/export/gerber-exporter.js"></script>
+    <script src="js/parsers/pcbdoc-parser.js"></script>
+    <script src="js/parsers/kicad-parser.js"></script>
+    <script src="js/parsers/gerber-parser.js"></script>
+    <script src="js/parsers/drill-parser.js"></script>
+    <script src="js/parsers/schematic-parser.js"></script>
+    <script src="js/parsers/archive-parser.js"></script>
+    
+    <!-- Three.js for 3D rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    
+    <!-- Plandex Integration -->
+    <script src="js/integrations/plandex-integration.js"></script>
+
+    <!-- UI Components -->
+    <script src="js/ui/sidebar-manager.js"></script>
+
+    <!-- Main application -->
+    <script src="js/pcb-editor.js"></script>
+    <script src="js/core/renderer3d.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

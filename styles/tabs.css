@@ -1,0 +1,34 @@
+/* Tabbed Interface for Right Panel */
+.tab-nav {
+    display: flex;
+    border-bottom: 1px solid #3e3e42;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #cccccc;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    background: #3e3e42;
+}
+
+.tab-btn.active {
+    color: #0098ff;
+    border-bottom-color: #0098ff;
+}
+
+.tab-content {
+    display: none;
+    padding: 12px;
+}
+
+.tab-content.active {
+    display: block;
+}

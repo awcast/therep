@@ -1,0 +1,329 @@
+/* Right Panel */
+.panel-right {
+    display: none; /* Hidden by default */
+}
+
+.panel-section {
+    border-bottom: 1px solid #3e3e42;
+    padding: 12px;
+}
+
+.panel-section:last-child {
+    border-bottom: none;
+    flex: 1;
+}
+
+.panel-section h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #cccccc;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Properties Panel */
+#properties-panel {
+    font-size: 12px;
+    color: #cccccc;
+}
+
+.property-group {
+    margin-bottom: 16px;
+}
+
+.property-group:last-child {
+    margin-bottom: 0;
+}
+
+.property-group h4 {
+    font-size: 11px;
+    font-weight: 600;
+    color: #cccccc;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.property-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 11px;
+}
+
+.property-item:last-child {
+    margin-bottom: 0;
+}
+
+.property-item label {
+    color: #cccccc;
+    min-width: 80px;
+}
+
+.property-item input,
+.property-item select {
+    background: #3c3c3c;
+    border: 1px solid #464647;
+    color: #cccccc;
+    padding: 4px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    width: 100px;
+}
+
+.property-item input:focus,
+.property-item select:focus {
+    outline: none;
+    border-color: #007acc;
+}
+
+/* Component Library */
+.component-library {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.component-category {
+    margin-bottom: 12px;
+}
+
+.component-category:last-child {
+    margin-bottom: 0;
+}
+
+.component-category h4 {
+    font-size: 11px;
+    font-weight: 600;
+    color: #cccccc;
+    margin-bottom: 6px;
+    padding: 4px 0;
+    border-bottom: 1px solid #3e3e42;
+}
+
+.component-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.component-item:hover {
+    background: #3e3e42;
+}
+
+.component-item:active {
+    background: #007acc;
+}
+
+.component-item span {
+    flex: 1;
+}
+
+.component-item::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: #464647;
+    border-radius: 2px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+/* Design Rules */
+.design-rules {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.rule-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+}
+
+.rule-item label {
+    color: #cccccc;
+    min-width: 100px;
+    font-size: 11px;
+}
+
+.rule-item input {
+    background: #3c3c3c;
+    border: 1px solid #464647;
+    color: #cccccc;
+    padding: 4px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    width: 60px;
+}
+
+.rule-item input:focus {
+    outline: none;
+    border-color: #007acc;
+}
+
+.rule-item span {
+    color: #999999;
+    font-size: 10px;
+}
+
+/* Collapsible Sections */
+.panel-section.collapsible h3 {
+    cursor: pointer;
+    position: relative;
+    padding-right: 20px;
+}
+
+.panel-section.collapsible h3::after {
+    content: '▼';
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 10px;
+    transition: transform 0.2s;
+}
+
+.panel-section.collapsible.collapsed h3::after {
+    transform: rotate(-90deg);
+}
+
+.panel-section.collapsible.collapsed > *:not(h3) {
+    display: none;
+}
+
+/* Search and Filter */
+.panel-search {
+    margin-bottom: 12px;
+}
+
+.panel-search input {
+    width: 100%;
+    background: #3c3c3c;
+    border: 1px solid #464647;
+    color: #cccccc;
+    padding: 6px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.panel-search input:focus {
+    outline: none;
+    border-color: #007acc;
+}
+
+.panel-search input::placeholder {
+    color: #999999;
+}
+
+/* Action Buttons */
+.panel-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #3e3e42;
+}
+
+.panel-btn {
+    flex: 1;
+    background: #0e639c;
+    border: 1px solid #007acc;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 11px;
+    transition: all 0.2s;
+}
+
+.panel-btn:hover {
+    background: #1177bb;
+    border-color: #1177bb;
+}
+
+.panel-btn:active {
+    background: #005a9e;
+}
+
+.panel-btn.secondary {
+    background: transparent;
+    border-color: #464647;
+    color: #cccccc;
+}
+
+.panel-btn.secondary:hover {
+    background: #3e3e42;
+    border-color: #007acc;
+}
+
+/* Component Preview */
+.component-preview {
+    width: 40px;
+    height: 30px;
+    background: #1e1e1e;
+    border: 1px solid #464647;
+    border-radius: 3px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    color: #999999;
+}
+
+/* Layer Stack */
+.layer-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 8px;
+}
+
+.layer-stack-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 6px;
+    background: #2d2d30;
+    border-radius: 2px;
+    font-size: 10px;
+}
+
+.layer-stack-item .layer-color {
+    width: 8px;
+    height: 8px;
+    margin-right: 6px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .panel-right {
+        width: 240px;
+    }
+    
+    .property-item input,
+    .property-item select {
+        width: 80px;
+    }
+}
+
+@media (max-width: 900px) {
+    .panel-section {
+        padding: 8px;
+    }
+    
+    .component-library {
+        max-height: 150px;
+    }
+    
+    .design-rules {
+        gap: 8px;
+    }
+}

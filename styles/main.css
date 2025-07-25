@@ -1,0 +1,456 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    background: #1e1e1e;
+    color: #cccccc;
+    overflow: hidden;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Menu Bar */
+.menu-bar {
+    display: flex;
+    background: #2d2d30;
+    border-bottom: 1px solid #3e3e42;
+    padding: 8px 12px;
+    gap: 20px;
+}
+
+.menu-group {
+    display: flex;
+    gap: 4px;
+}
+
+.menu-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: #cccccc;
+    padding: 6px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.menu-btn:hover {
+    background: #3e3e42;
+    border-color: #464647;
+}
+
+.menu-btn:active {
+    background: #007acc;
+    border-color: #007acc;
+}
+
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2d2d30;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border: 1px solid #3e3e42;
+    border-radius: 4px;
+}
+
+.dropdown-content a {
+    color: #cccccc;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+}
+
+.dropdown-content a:hover {
+    background-color: #3e3e42;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.separator {
+    height: 1px;
+    background-color: #3e3e42;
+    margin: 4px 0;
+}
+
+/* Main Content */
+.main-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Workspace adjustments when sidebar is hidden */
+.main-content.sidebar-hidden .toolbar-left {
+    display: none;
+}
+
+.main-content.sidebar-hidden .canvas-container {
+    width: 100%;
+    margin-left: 0;
+}
+
+/* Sidebar toggle button */
+.sidebar-toggle-btn {
+    background: var(--bg-secondary, #2d2d30);
+    border: 1px solid var(--border-color, #3e3e42);
+    color: var(--text-color, #cccccc);
+    padding: 6px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 10px;
+    transition: background-color 0.2s ease;
+    min-width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-toggle-btn:hover {
+    background: var(--bg-hover, #3e3e42);
+}
+
+.sidebar-toggle-btn:active {
+    background: var(--bg-active, #464647);
+}
+
+/* Canvas Container */
+.canvas-container {
+    flex: 1;
+    position: relative;
+    background: #252526;
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+#pcb-canvas {
+    display: block;
+    background: #0a0a0a;
+    cursor: crosshair;
+    width: 100%;
+    height: 100%;
+}
+
+.canvas-overlay {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(45, 45, 48, 0.9);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+}
+
+.canvas-overlay div {
+    margin-bottom: 4px;
+}
+
+.canvas-overlay div:last-child {
+    margin-bottom: 0;
+}
+
+/* Status Bar */
+.status-bar {
+    height: 24px;
+    background: #2d2d30;
+    border-top: 1px solid #3e3e42;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    font-size: 12px;
+    color: #cccccc;
+}
+
+.status-left {
+    display: flex;
+    gap: 16px;
+}
+
+.status-right {
+    display: flex;
+    gap: 16px;
+}
+
+/* Error Dialog */
+.error-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.error-content {
+    background: #2d2d30;
+    border: 1px solid #3e3e42;
+    border-radius: 4px;
+    padding: 20px;
+    min-width: 300px;
+    max-width: 500px;
+    color: #cccccc;
+}
+
+.error-content h3 {
+    margin: 0 0 12px 0;
+    color: #f48771;
+    font-size: 16px;
+}
+
+.error-content p {
+    margin: 0 0 16px 0;
+    line-height: 1.4;
+}
+
+.error-content button {
+    background: #0e639c;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.error-content button:hover {
+    background: #1177bb;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #2d2d30;
+    border: 1px solid #3e3e42;
+    border-radius: 6px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 1px solid #3e3e42;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: #cccccc;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Library Modal */
+.library-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.library-search input {
+    width: 250px;
+    padding: 8px;
+}
+
+.library-search button,
+.library-actions button {
+    padding: 8px 16px;
+}
+
+.library-content {
+    border-top: 1px solid #3e3e42;
+    padding-top: 15px;
+}
+
+.library-stats {
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+
+.library-stats span {
+    margin-right: 20px;
+}
+
+.library-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.library-item {
+    background: #252526;
+    border: 1px solid #3e3e42;
+    border-radius: 4px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.library-item:hover {
+    background: #3e3e42;
+    border-color: #007acc;
+}
+
+.library-item h4 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.library-item p {
+    font-size: 12px;
+    color: #999999;
+    margin: 0 0 4px 0;
+}
+
+/* User Modal */
+.user-settings .setting-group {
+    margin-bottom: 20px;
+}
+
+.user-settings label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.user-settings input {
+    width: 250px;
+    padding: 8px;
+    margin-right: 10px;
+}
+
+.users-list .user-item {
+    padding: 8px;
+    border-bottom: 1px solid #3e3e42;
+}
+
+::-webkit-scrollbar-track {
+    background: #2d2d30;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #464647;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5a5a5c;
+}
+
+/* Form Elements */
+input[type="number"] {
+    background: #3c3c3c;
+    border: 1px solid #464647;
+    color: #cccccc;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    width: 60px;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #007acc;
+}
+
+input[type="checkbox"] {
+    accent-color: #007acc;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .panel-right {
+        width: 200px;
+    }
+    
+    .toolbar-left {
+        width: 180px;
+    }
+}
+
+@media (max-width: 900px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .toolbar-left,
+    .panel-right {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+}
